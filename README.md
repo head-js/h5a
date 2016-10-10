@@ -1,2 +1,4 @@
-# rollup-try-catch-dropped
+rollup-try-catch-dropped
+==
+
 bug repro

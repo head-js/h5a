@@ -1,0 +1,36 @@
+{
+  "name": "analytics.js-integration-google-analytics",
+  "description": "The Google Analytics analytics.js integration.",
+  "version": "0.0.5",
+  "keywords": [
+    "analytics.js",
+    "analytics.js-integration",
+    "segment",
+    "google-analytics"
+  ],
+  "main": "dist/integration.js",
+  "scripts": {
+    "build": "rollup --config rollupfile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nice-fungal/analytics.js-integration-google-analytics.git"
+  },
+  "author": "Segment <friends@segment.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/nice-fungal/analytics.js-integration-google-analytics/issues"
+  },
+  "homepage": "https://github.com/segment-integrations/analytics.js-integration-google-analytics#readme",
+  "dependencies": {
+    "@ndhoule/defaults": "2.0.1",
+    "component-each": "0.2.6",
+    "global-queue": "1.0.1",
+    "obj-case": "0.2.0"
+  },
+  "devDependencies": {
+    "rollup": "0.36.3",
+    "rollup-plugin-commonjs": "5.0.4",
+    "rollup-plugin-node-resolve": "2.0.0"
+  }
+}

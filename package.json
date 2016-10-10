@@ -23,10 +23,7 @@
   },
   "homepage": "https://github.com/segment-integrations/analytics.js-integration-google-analytics#readme",
   "dependencies": {
-    "@ndhoule/defaults": "2.0.1",
-    "component-each": "0.2.6",
-    "global-queue": "1.0.1",
-    "obj-case": "0.2.0"
+    "component-each": "0.2.6"
   },
   "devDependencies": {
     "rollup": "0.36.3",

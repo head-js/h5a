@@ -1,0 +1,27 @@
+{
+  "name": "analytics.js-integration-lattebank-analytics",
+  "version": "0.1.7",
+  "description": "The Latte Bank Stats Analytics.js Integration.",
+  "author": "徐帅哲<xushuaizhe@lattebank.com>",
+  "main": "dist/latte-h5a.integration.js",
+  "scripts": {
+    "build": "rollup --config rollupfile.js && gsed -i \"s/var NOT_A_MODULE = //\" ./dist/latte-h5a.integration.js && gsed -i '1s/^/\\/* analytics.js-integration-lattebank-analytics 0.1.7 *\\/\\n/' ./dist/latte-h5a.integration.js",
+    "dist": "uglifyjs --screw-ie8 --stats --mangle --verbose --compress --output ./dist/latte-h5a.integration.min.js ./dist/latte-h5a.integration.js && gsed -i '1s/^/\\/* analytics.js-integration-lattebank-analytics 0.1.7 *\\/\\n/' ./dist/latte-h5a.integration.min.js"
+  },
+  "dependencies": {
+    "@ndhoule/defaults": "2.0.1",
+    "analytics.js-core": "github:nice-fungal/analytics.js-core#4d33ba49a0d2c4c185d271f0e4c592dba88141db",
+    "analytics.js-integration-google-analytics": "github:nice-fungal/analytics.js-integration-google-analytics#3d7ac8e3377b4be0597ad98d3e7aa74ee8130c44",
+    "component-each": "0.2.6",
+    "deepmerge": "0.2.10",
+    "h5-modernizr": "github:hbrls/h5-modernizr#8c26d5778125e72de10244ab3fb21224ed384ab6",
+    "obj-case": "0.2.0",
+    "vanilla.js": "0.0.10"
+  },
+  "devDependencies": {
+    "rollup": "0.31.2",
+    "rollup-plugin-commonjs": "3.0.0",
+    "rollup-plugin-node-resolve": "1.7.0",
+    "uglify-js": "2.7.0"
+  }
+}

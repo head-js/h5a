@@ -1,8 +1,8 @@
 {
-	"name": "latte-h5a",
-	"version": "0.2.0",
-	"description": "The Lattebank Stats Analytics.js Integration.",
-	"devDependencies": {
-		"lerna": "^2.5.1"
-	}
+  "name": "latte-h5a",
+  "version": "0.2.0",
+  "description": "The Lattebank Stats Analytics.js Integration.",
+  "devDependencies": {
+    "lerna": "^2.5.1"
+  }
 }

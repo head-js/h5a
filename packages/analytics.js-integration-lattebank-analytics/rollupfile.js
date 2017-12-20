@@ -15,6 +15,6 @@ export default {
     }),
   ],
   targets: [
-    { dest: 'dist/latte-h5a.integration.js', format: 'iife', moduleName: 'NOT_A_MODULE', globals: { analytics: 'analytics' } },
+    { dest: 'dist/integration.js', format: 'iife', moduleName: 'NOT_A_MODULE', globals: { analytics: 'analytics' } },
   ],
 };

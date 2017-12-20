@@ -1,10 +1,10 @@
 {
-  "name": "latte-h5a",
+  "name": "@lattebank/latte-h5a",
   "version": "0.2.0",
   "description": "The Lattebank Stats Analytics.js Integration.",
   "scripts": {
-    "dev": "gulp build:tracking && gulp build:dev",
-    "build": "gulp build:tracking && gulp build"
+    "dev": "gulp build:tracking && gulp build:integration:dev && gulp build:dev",
+    "build": "gulp build:tracking && gulp build:integration && gulp build"
   },
   "dependencies": {
     "@lattebank/analytics.js-core": "3.0.0",

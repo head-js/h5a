@@ -5,8 +5,8 @@
   "author": "徐帅哲<xushuaizhe@lattebank.com>",
   "main": "dist/latte-h5a.integration.js",
   "scripts": {
-    "build": "rollup --config rollupfile.js && gsed -i \"s/var NOT_A_MODULE = //\" ./dist/latte-h5a.integration.js && gsed -i '1s/^/\\/* analytics.js-integration-lattebank-analytics 0.1.7 *\\/\\n/' ./dist/latte-h5a.integration.js",
-    "dist": "uglifyjs --screw-ie8 --stats --mangle --verbose --compress --output ./dist/latte-h5a.integration.min.js ./dist/latte-h5a.integration.js && gsed -i '1s/^/\\/* analytics.js-integration-lattebank-analytics 0.1.7 *\\/\\n/' ./dist/latte-h5a.integration.min.js"
+    "build": "rollup --config rollupfile.js && gsed -i \"s/var NOT_A_MODULE = //\" ./dist/integration.js && gsed -i '1s/^/\\/* analytics.js-integration-lattebank-analytics 0.1.7 *\\/\\n/' ./dist/integration.js",
+    "dist": "uglifyjs --screw-ie8 --stats --mangle --verbose --compress --output ./dist/integration.min.js ./dist/integration.js && gsed -i '1s/^/\\/* analytics.js-integration-lattebank-analytics 0.1.7 *\\/\\n/' ./dist/integration.min.js"
   },
   "dependencies": {
     "@ndhoule/defaults": "2.0.1",

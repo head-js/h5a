@@ -1,5 +1,13 @@
 # Lattebank Front End Analytics
 
+Analytics Integrations
+==
+| Integration | ID |
+| --------   | -----:   | :----: |
+| Google Analytics | Google Analytics |
+| Lattebank Analytics | Latte Bank Stats | 
+> ID 表示Integration唯一性标识，用在init时的关键参数
+
 CHANGELOG
 ==
 0.2.0

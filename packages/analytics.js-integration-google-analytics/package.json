@@ -1,5 +1,5 @@
 {
-  "name": "analytics.js-integration-google-analytics",
+  "name": "@lattebank/analytics.js-integration-google-analytics",
   "description": "The Google Analytics analytics.js integration.",
   "version": "2.3.0",
   "keywords": [
@@ -28,6 +28,9 @@
     "component-each": "0.2.6",
     "global-queue": "1.0.1",
     "obj-case": "0.2.0"
+  },
+  "peerDependencies": {
+    "@lattebank/analytics.js-core": "3.0.0"
   },
   "devDependencies": {
     "rollup": "0.36.3",

@@ -1,5 +1,5 @@
 {
-  "name": "analytics.js-core",
+  "name": "@lattebank/analytics.js-core",
   "author": "Segment <friends@segment.com>, hbrls <shuaizhexu@gmail.com>",
   "version": "3.0.0",
   "description": "The hassle-free way to integrate analytics into any web application.",

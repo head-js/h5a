@@ -1,4 +1,4 @@
-var core = require('analytics');
+var core = window.analytics; // FIXME: rollup.external/globals
 
 /**
  * Module dependencies.

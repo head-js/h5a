@@ -1,24 +1,17 @@
+var helper = require('../utils/helper');
+var integrations = require('./integrations');
+var loadjs = require('loadjs')
+
 (function () {
   var win = window;
   var doc = document;
+  var jsLoader = loadjs || win.loadjs;
   // TODO: noConflict
   var analytics = win.analytics;
 
   function noop() {}
 
-  function trim(a) {
-    return a ? a.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '') : '';
-  }
-
-  var isArray = Array.isArray || function (a) {
-    return Object.prototype.toString.call(a) === '[object Array]';
-  };
-
-  function isString(a) {
-    return (typeof a === 'string') || a instanceof String;
-  }
-
-  var libName = trim(window.H5AnalyticsObject) || 'h5a';
+  var libName = helper.trim(window.H5AnalyticsObject) || 'h5a';
   var lib = window[libName];
 
   var timingStart = lib.l || +new Date();
@@ -27,7 +20,7 @@
    * @return {Integer}
    */
   analytics.timing = function (now) {
-      return (now || new Date()) - timingStart;
+    return (now || new Date()) - timingStart;
   }
 
   function sendError(message, tracker) {
@@ -73,21 +66,57 @@
     }
   }
 
-  /**
-   * @param {String} trackingId    The unique id of the tracked app
-   * @param {String} cookieDomain  TODO
-   * @param {String} trackerName   Each tracker can have its own gif, defaults, etc.
-   */
+  function h5aIntegrationLoader() {
+    var args = [].slice.call(arguments);
 
-  var queue = [];
-  var q = lib && lib.q;
-  if (isArray(q)) {
-    for (var i = 0; i < q.length; i++) {
-      h5a.apply(h5a, q[i]);
+    var command = args[0];
+    var options = args.slice(1);
+
+    var c = REG_COMMAND.exec(command);
+    var trackerName = c[1] || '';
+    var pluginName = c[2] || '';
+    var methodName = c[3];
+    console.assert(methodName, 'methodName is required');
+
+    if (methodName === 'init' && lib.integrationLoaded !== true) {
+      if (options.length === 1) {
+        options = options.shift();
+        var integrationJSList = helper.keys(options).map(function (itkey) {
+          return integrations.find(function (it) {
+            return it.id === itkey
+          }).file
+        });
+        console.debug('Integration js: ', integrationJSList);
+        jsLoader(integrationList, {
+          success: function () {
+            lib.integrationLoaded = true;
+            dequeues();
+          }
+        })
+      } else {
+        sendError('invalid init options');
+      }
+    } else {
+      enqueue(args);
     }
-
-    window[libName] = h5a;
-  } else {
-    console.warn('invalid lib.q');
   }
+
+  function enqueue(args) {
+    window[libName].q = window[libName].q || [];
+    q.push(args);
+  }
+
+  function dequeues() {
+    var q = lib && lib.q;
+    if (helper.isArray(q)) {
+      for (var i = 0; i < q.length; i++) {
+        h5a.apply(h5a, q[i]);
+      }
+    } else {
+      console.warn('invalid lib.q');
+    }
+    window[libName] = h5a;
+  }
+
+  window[libName] = h5aIntegrationLoader;
 }(window));

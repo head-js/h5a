@@ -7,8 +7,18 @@ var header = require('gulp-header');
 var rename = require('./utils/gulp-rename');
 var concat = require('gulp-concat');
 var copy = require('gulp-copy');
+var del = require('del');
+var rollup = require('rollup');
+var commonJsResolve = require('rollup-plugin-commonjs');
+var nodeJsResolve = require('rollup-plugin-node-resolve');
 
 const version = require('./package.json').version;
+
+const commonUglifyopts = {
+  compress: {
+    drop_console: true
+  },
+};
 
 gulp.task('build:tracking', function () {
   var opts = {
@@ -49,29 +59,55 @@ gulp.task('build:integration:dev', buildIntegrationFn('integration.js'));
 
 gulp.task('build:integration', buildIntegrationFn('integration.min.js'));
 
-gulp.task('build:dev', function () {
+gulp.task('build:adapter:dev', function () {
+  return rollup.rollup({
+    entry: 'adapter/index.js',
+    plugins: [
+      nodeJsResolve({ browser: true }),
+      commonJsResolve({ sourceMap: false })
+    ]
+  }).then(bundle => {
+    return bundle.write({
+      dest: './dist/analytics.adapter.js',
+      file: './dist/analytics.adapter.js',
+      format: 'iife',
+      moduleName: 'NOT_A_MODULE',
+      globals: {
+        loadjs: 'loadjs'
+      }
+    })
+  })
+});
+
+gulp.task('clean:adapter', function() {
+  del(['dist/analytics.adapter.js']);
+});
+
+gulp.task('build:adapter', ['build:adapter:dev'], function() {
+  return gulp.src([
+    './dist/analytics.adapter.js'
+  ])
+  .pipe(uglify(commonUglifyopts))
+  .pipe(header(`/* lattebank h5a v${version} */\n`))
+  .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('build:dev', ['build:adapter:dev'], function () {
   return gulp
     .src([
       './node_modules/@lattebank/analytics.js-core/dist/analytics.core.js',
-      './adapter/index.js'
+      './dist/analytics.adapter.js'
     ])
     .pipe(concat('analytics.js'))
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build', function () {
-  let opts = {
-    compress: {
-      drop_console: true,
-    },
-  };
+gulp.task('build', ['build:adapter'], function () {
   return gulp
     .src([
-      './node_modules/@lattebank/analytics.js-core/dist/analytics.core.js',
-      './adapter/index.js'
+      './node_modules/@lattebank/analytics.js-core/dist/analytics.core.min.js',
+      './dist/analytics.adapter.js'
     ])
-    .pipe(uglify(opts))
-    .pipe(header(`/* lattebank h5a v${version} */\n`))
     .pipe(concat('analytics.js'))
     .pipe(gulp.dest('./dist'));
 });

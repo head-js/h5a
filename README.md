@@ -7,6 +7,7 @@ Analytics Integrations
 | Google Analytics | Google Analytics |
 | Lattebank Analytics | Latte Bank Stats | 
 > ID 表示Integration唯一性标识，用在init时的关键参数
+> 代码中会定义 integrations 的注册信息，详见： [integrations.js](http://gitlab.sit.caijj.net/client-web/latte-h5a/blob/master/adapter/integrations.js)
 
 CHANGELOG
 ==

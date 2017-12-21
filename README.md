@@ -2,10 +2,10 @@
 
 Analytics Integrations
 ==
-| Integration | ID |
-| --------   | -----:   | :----: |
-| Google Analytics | Google Analytics |
-| Lattebank Analytics | Latte Bank Stats | 
+| Integration | ID | JS 文件 |
+| --------   | -----:   | -----:   | :----: |
+| Google Analytics | Google Analytics | analytics.integration.google.js |
+| Lattebank Analytics | Latte Bank Stats | analytics.integration.lattebank.js |
 
 ---
 ID 表示Integration唯一性标识，用在init时的关键参数

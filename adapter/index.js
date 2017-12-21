@@ -1,6 +1,6 @@
 var helper = require('../utils/helper');
 var integrations = require('./integrations');
-var loadjs = require('loadjs')
+var loadjs = require('loadjs');
 
 (function () {
   var win = window;
@@ -13,6 +13,8 @@ var loadjs = require('loadjs')
 
   var libName = helper.trim(window.H5AnalyticsObject) || 'h5a';
   var lib = window[libName];
+
+  var baseAnalyticsJsPath = (lib && lib.basePath) || '/';
 
   var timingStart = lib.l || +new Date();
   /**
@@ -81,13 +83,13 @@ var loadjs = require('loadjs')
     if (methodName === 'init' && lib.integrationLoaded !== true) {
       if (options.length === 1) {
         options = options.shift();
+        enqueue(args);
         var integrationJSList = helper.keys(options).map(function (itkey) {
-          return integrations.find(function (it) {
+          return baseAnalyticsJsPath + integrations.find(function (it) {
             return it.id === itkey
           }).file
         });
-        console.debug('Integration js: ', integrationJSList);
-        jsLoader(integrationList, {
+        jsLoader(integrationJSList, {
           success: function () {
             lib.integrationLoaded = true;
             dequeues();
@@ -102,21 +104,26 @@ var loadjs = require('loadjs')
   }
 
   function enqueue(args) {
-    window[libName].q = window[libName].q || [];
-    q.push(args);
+    lib.q = lib.q || [];
+    lib.q.push(args);
   }
 
   function dequeues() {
     var q = lib && lib.q;
     if (helper.isArray(q)) {
+      var h5aLib = lib.integrationLoaded ? h5a : h5aIntegrationLoader;
       for (var i = 0; i < q.length; i++) {
-        h5a.apply(h5a, q[i]);
+        h5aLib.apply(h5aLib, q[i]);
       }
     } else {
       console.warn('invalid lib.q');
     }
-    window[libName] = h5a;
+    if (lib.integrationLoaded === true) {
+      window[libName] = h5a;
+    }
   }
 
   window[libName] = h5aIntegrationLoader;
+
+  dequeues();
 }(window));

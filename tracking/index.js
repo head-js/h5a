@@ -11,10 +11,11 @@
  * @param {string}        s       Must be 'script'.
  * @param {string}        src     Protocol relative URL of the analytics.js script.
  * @param {string}        lib     Global name of analytics object. Defaults to 'h5a'.
+ * @param {string}        path    The path where the analytics files locate
  * @param {HTMLElement}   script  Async script tag.
  * @param {HTMLElement}   tag     First script tag in document.
  */
-(function(win, doc, s, src, lib, script, tag){
+(function(win, doc, s, src, lib, path, script, tag){
   win['H5AnalyticsObject'] = lib; // Acts as a pointer to support renaming.
 
   // Creates an initial h5a() function.
@@ -25,6 +26,8 @@
 
   // Always
   win[lib].q = win[lib].q || [];
+
+  win[lib].basePath = path || '/';
 
   // Sets the time (as an integer) this tag was executed.
   // Used for timing hits.
@@ -38,4 +41,4 @@
   script.async = 1;
   script.src = src;
   tag.parentNode.insertBefore(script, tag)
-})(window, document, 'script', 'https://analytics.lisitede.com/analytics.js', 'h5a');
+})(window, document, 'script', 'https://analytics.lisitede.com/analytics.js', 'h5a', '/js');

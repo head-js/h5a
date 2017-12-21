@@ -19,6 +19,7 @@ CHANGELOG
 1. 整体重构优化版本
 2. core, integration-google-analytics维持原来的版本
 3. integration-lattebank-analytics版本迭代，升级至 0.1.7
+4. 更新了 tracking.js，为了满足动态加载引入了 basePath 参数。需要同步到 ftl 模板里
 
 命名约定
 ==

@@ -29,6 +29,11 @@
 
   win[lib].basePath = path || '/';
 
+  // Monitor window loaded for performance metrics collecting
+  win.onload = function() {
+    win[lib].winLoaded = true;
+  };
+
   // Sets the time (as an integer) this tag was executed.
   // Used for timing hits.
   win[lib].l = 1 * new Date();

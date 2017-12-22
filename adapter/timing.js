@@ -2,6 +2,13 @@
  * Timing.js 1.2.0
  * Copyright 2016 Addy Osmani
  */
+/**
+ * Update history
+ * 2017-12-22 zhouwei
+ */
+
+var helper = require('../utils/helper');
+
 (function(window) {
   'use strict';
 
@@ -89,6 +96,10 @@
               // Load event time
               api.loadEventTime = timing.loadEventEnd - timing.loadEventStart;
           }
+
+          helper.keys(api).forEach(function(k) {
+            api[k] = api[k].toFixed(2);
+          })
 
           return api;
       },

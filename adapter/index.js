@@ -1,6 +1,7 @@
 var helper = require('../utils/helper');
 var integrations = require('./integrations');
 var loadjs = require('loadjs');
+var timing = require('./timing');
 
 (function () {
   var win = window;
@@ -58,6 +59,12 @@ var loadjs = require('loadjs');
           analytics.page.apply(options);
         } else if (hitType === 'track') {
           analytics.track.apply(null, options);
+        } else if (hitType === 'timing') {
+          if (lib.winLoaded === true) {
+            sendPerfMetrics();
+          } else {
+            win.addEventListener('load', sendPerfMetrics, false);
+          }
         } else {
           console.warn('invalid command args');
         }
@@ -66,6 +73,11 @@ var loadjs = require('loadjs');
         console.warn('invalid command');
         break;
     }
+  }
+
+  function sendPerfMetrics() {
+    var timingInfo = timing.getTimes({ simple: true });
+    analytics.track.call(null, 'timing', timingInfo);
   }
 
   function h5aIntegrationLoader() {

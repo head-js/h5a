@@ -10,7 +10,7 @@ var timing = require('./timing');
   // TODO: noConflict
   var analytics = win.analytics;
 
-  function noop() {}
+  function noop() { }
 
   var libName = helper.trim(window.H5AnalyticsObject) || 'h5a';
   var lib = window[libName];
@@ -76,8 +76,10 @@ var timing = require('./timing');
   }
 
   function sendPerfMetrics() {
-    var timingInfo = timing.getTimes({ simple: true });
-    analytics.track.call(null, 'timing', timingInfo);
+    setTimeout(function () {
+      var timingInfo = timing.getTimes({ simple: true });
+      analytics.track.call(null, 'timing', timingInfo);
+    }, 0);
   }
 
   function h5aIntegrationLoader() {

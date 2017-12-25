@@ -98,7 +98,7 @@ var helper = require('../utils/helper');
           }
 
           helper.keys(api).forEach(function(k) {
-            api[k] = api[k].toFixed(2);
+            api[k] = Math.round(api[k]);
           })
 
           return api;

@@ -9,8 +9,13 @@
 * analytics.js，核心 analytics 文件，里面包含了 analytics.core，h5a adapter以及一个微型的 loader 组件
 * analytics.integration.{provider}.js，第三方基于 analytics 实现的 integration，由 analytics.js 动态根据接受到的 init 请求参数 动态加载
 
+> 集成主要的改动集中体现在 web.jar 项目中，对应用端是透明的
+
 ### 如何使用
-应用端的接口和原来保持一致，不需要做任何其他变更。后面会加入 timing 接口，文档待定。
+应用端的接口和原来保持一致，不需要做任何其他变更。应用端新增一个 timing 接口，具体使用方式
+```javascript
+h5a('send', 'timing');
+```
 
 ### 开发构建
 ```bash

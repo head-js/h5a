@@ -78,6 +78,7 @@ var timing = require('./timing');
   function sendPerfMetrics() {
     setTimeout(function () {
       var timingInfo = timing.getTimes({ simple: true });
+      timingInfo.event = 'timing';
       analytics.track.call(null, 'timing', timingInfo);
     }, 0);
   }

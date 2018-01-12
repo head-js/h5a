@@ -22,9 +22,27 @@ var keys = Object.keys || function (obj) {
   return a;
 };
 
+// Only simple use for array deep copy
+var cloneArray = function(arr) {
+  if (!arr) {
+    return [];
+  }
+  var clonedArray = [];
+  if (isArray(arr)) {
+    clonedArray = Array(arr.length);
+    for (var i=0; i<arr.length; i++) {
+      clonedArray[i] = cloneArray(arr[i]);
+    }
+  } else {
+    return arr;
+  }
+  return clonedArray;
+}
+
 module.exports = {
   trim: trim,
   isArray: isArray,
   isString: isString,
-  keys: keys
+  keys: keys,
+  cloneArray: cloneArray
 }

@@ -124,11 +124,11 @@ var timing = require('./timing');
   }
 
   function dequeues() {
-    var q = lib && lib.q;
-    if (helper.isArray(q)) {
+    var clonedQueue = helper.cloneArray(lib && lib.q);
+    if (helper.isArray(clonedQueue)) {
       var h5aLib = lib.integrationLoaded ? h5a : h5aIntegrationLoader;
-      for (var i = 0; i < q.length; i++) {
-        h5aLib.apply(h5aLib, q[i]);
+      for (var i = 0; i < clonedQueue.length; i++) {
+        h5aLib.apply(h5aLib, clonedQueue[i]);
       }
     } else {
       console.warn('invalid lib.q');

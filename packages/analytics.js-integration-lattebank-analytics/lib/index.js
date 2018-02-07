@@ -12,6 +12,7 @@ var parseMeta = require('./parseMeta');
 var len = require('./object-length');
 var utils = require('./utils');
 var Modernizr = require('h5-modernizr');
+var routeEvent = require('./routeEvent');
 
 /**
  * Expose plugin.
@@ -143,13 +144,19 @@ LBS.prototype.loaded = function() {
  * @param {Page} page
  */
 
-LBS.prototype.page = function(page) {
+LBS.prototype.page = function fnPage(page) {
   // var category = page.category();
   var props = page.properties();
   var name = page.fullName();
   var opts = this.options;
   // console.debug(opts);
   var tom = this.analytics;
+
+  if (opts.singlePage === true) {
+    routeEvent.subscribe(function () {
+      fnPage.call(this, page);
+    }.bind(this));
+  }
 
   // var pageview = {};
   var pagePath = path(props, opts);
@@ -278,6 +285,10 @@ LBS.prototype.track = function(track, options) {
 function path(properties, options) {
   if (!properties) return;
   var str = properties.path;
+
+  if (options.singlePage === true && str.indexOf('#') < 0) {
+    str += location.hash;
+  }
 
   // FIXME: move to Facade
   var REGEX_JSESSIONID = /;jsessionid=[0-9a-zA-Z]{8,32}$/ig;

@@ -36,7 +36,7 @@ module.exports = {
     var str = [];
     for (var k in fields) {
       if (fields[k]) {
-        str.push(k + '=' + fields[k]);
+        str.push(k + '=' + encodeURIComponent(fields[k]));
       }
     }
     str = str.join('&');

@@ -56,7 +56,7 @@ var timing = require('./timing');
       case 'send':
         var hitType = options.shift();
         if (hitType === 'page') {
-          analytics.page.apply(options);
+          analytics.page.apply(null, options);
         } else if (hitType === 'track') {
           analytics.track.apply(null, options);
         } else if (hitType === 'timing') {

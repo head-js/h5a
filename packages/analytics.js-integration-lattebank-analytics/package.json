@@ -1,6 +1,6 @@
 {
   "name": "@lattebank/analytics.js-integration-lattebank-analytics",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "The Latte Bank Stats Analytics.js Integration.",
   "author": "徐帅哲<xushuaizhe@lattebank.com>",
   "main": "dist/latte-h5a.integration.js",

@@ -8,6 +8,25 @@
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
 	}
 
+	var routeEvent = createCommonjsModule(function (module) {
+	module.exports = {
+	  subscribe: function(handler) {
+	    // Avoid duplicate event trigger sometimes (React-Router _k hash change)
+	    var pattern = /[\?&]?_k=\w+/;
+	    if (!window.h5aRouteAlreadySubscribed) {
+	      window.addEventListener('hashchange', function(e) {
+	        if (e.oldURL.replace(pattern, '') !== e.newURL.replace(pattern, '')) {
+	          handler();
+	        }
+	      } , false);
+	      window.h5aRouteAlreadySubscribed = true;
+	    }
+	  }
+	}
+	});
+
+	var require$$0 = (routeEvent && typeof routeEvent === 'object' && 'default' in routeEvent ? routeEvent['default'] : routeEvent);
+
 	var index$2 = createCommonjsModule(function (module) {
 	var Modernizr = {};
 
@@ -61,7 +80,7 @@
 	});
 	});
 
-	var require$$0 = (index$2 && typeof index$2 === 'object' && 'default' in index$2 ? index$2['default'] : index$2);
+	var require$$1 = (index$2 && typeof index$2 === 'object' && 'default' in index$2 ? index$2['default'] : index$2);
 
 	var uniform = createCommonjsModule(function (module) {
 	function pick(from_, to, fields) {
@@ -202,7 +221,7 @@
 	    var str = [];
 	    for (var k in fields) {
 	      if (fields[k]) {
-	        str.push(k + '=' + fields[k]);
+	        str.push(k + '=' + encodeURIComponent(fields[k]));
 	      }
 	    }
 	    str = str.join('&');
@@ -212,7 +231,7 @@
 	};
 	});
 
-	var require$$1 = (utils && typeof utils === 'object' && 'default' in utils ? utils['default'] : utils);
+	var require$$2 = (utils && typeof utils === 'object' && 'default' in utils ? utils['default'] : utils);
 
 	var objectLength = createCommonjsModule(function (module) {
 	// https://github.com/component/object/blob/master/index.js#L62
@@ -242,7 +261,7 @@
 	};
 	});
 
-	var require$$2 = (objectLength && typeof objectLength === 'object' && 'default' in objectLength ? objectLength['default'] : objectLength);
+	var require$$3 = (objectLength && typeof objectLength === 'object' && 'default' in objectLength ? objectLength['default'] : objectLength);
 
 	var find = createCommonjsModule(function (module) {
 	module.exports = function $find(selector) {
@@ -286,7 +305,7 @@
 	};
 	});
 
-	var require$$3 = (parseMeta && typeof parseMeta === 'object' && 'default' in parseMeta ? parseMeta['default'] : parseMeta);
+	var require$$4 = (parseMeta && typeof parseMeta === 'object' && 'default' in parseMeta ? parseMeta['default'] : parseMeta);
 
 	var parseUri = createCommonjsModule(function (module) {
 	// a node.js module fork of
@@ -331,7 +350,7 @@
 	module.exports = parseUri
 	});
 
-	var require$$4 = (parseUri && typeof parseUri === 'object' && 'default' in parseUri ? parseUri['default'] : parseUri);
+	var require$$5 = (parseUri && typeof parseUri === 'object' && 'default' in parseUri ? parseUri['default'] : parseUri);
 
 	var index$6 = createCommonjsModule(function (module) {
 	/**
@@ -706,7 +725,7 @@
 	}
 	});
 
-	var require$$5 = (index$4 && typeof index$4 === 'object' && 'default' in index$4 ? index$4['default'] : index$4);
+	var require$$6 = (index$4 && typeof index$4 === 'object' && 'default' in index$4 ? index$4['default'] : index$4);
 
 	var index$8 = createCommonjsModule(function (module) {
 	var identity = function(_){ return _; };
@@ -862,7 +881,7 @@
 	}
 	});
 
-	var require$$6 = (index$8 && typeof index$8 === 'object' && 'default' in index$8 ? index$8['default'] : index$8);
+	var require$$7 = (index$8 && typeof index$8 === 'object' && 'default' in index$8 ? index$8['default'] : index$8);
 
 	var index$10 = createCommonjsModule(function (module) {
 	'use strict';
@@ -1110,7 +1129,7 @@
 	module.exports.deep = defaultsDeep;
 	});
 
-	var require$$7 = (index$9 && typeof index$9 === 'object' && 'default' in index$9 ? index$9['default'] : index$9);
+	var require$$8 = (index$9 && typeof index$9 === 'object' && 'default' in index$9 ? index$9['default'] : index$9);
 
 	var index = createCommonjsModule(function (module) {
 	var core = window.analytics; // FIXME: rollup.external/globals
@@ -1119,14 +1138,15 @@
 	 * Module dependencies.
 	 */
 
-	var defaults = require$$7;
-	var dot = require$$6;
-	var each = require$$5;
-	var parseUri = require$$4;
-	var parseMeta = require$$3;
-	var len = require$$2;
-	var utils = require$$1;
-	var Modernizr = require$$0;
+	var defaults = require$$8;
+	var dot = require$$7;
+	var each = require$$6;
+	var parseUri = require$$5;
+	var parseMeta = require$$4;
+	var len = require$$3;
+	var utils = require$$2;
+	var Modernizr = require$$1;
+	var routeEvent = require$$0;
 
 	/**
 	 * Expose plugin.
@@ -1258,13 +1278,19 @@
 	 * @param {Page} page
 	 */
 
-	LBS.prototype.page = function(page) {
+	LBS.prototype.page = function fnPage(page) {
 	  // var category = page.category();
 	  var props = page.properties();
 	  var name = page.fullName();
 	  var opts = this.options;
 	  // console.debug(opts);
 	  var tom = this.analytics;
+
+	  if (opts.singlePage === true) {
+	    routeEvent.subscribe(function () {
+	      fnPage.call(this, page);
+	    }.bind(this));
+	  }
 
 	  // var pageview = {};
 	  var pagePath = path(props, opts);
@@ -1393,6 +1419,10 @@
 	function path(properties, options) {
 	  if (!properties) return;
 	  var str = properties.path;
+
+	  if (options.singlePage === true && str.indexOf('#') < 0) {
+	    str += location.hash;
+	  }
 
 	  // FIXME: move to Facade
 	  var REGEX_JSESSIONID = /;jsessionid=[0-9a-zA-Z]{8,32}$/ig;

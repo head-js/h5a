@@ -9,7 +9,7 @@
   "dependencies": {
     "@lattebank/analytics.js-core": "3.0.0",
     "@lattebank/analytics.js-integration-google-analytics": "2.3.0",
-    "@lattebank/analytics.js-integration-lattebank-analytics": "0.1.7",
+    "@lattebank/analytics.js-integration-lattebank-analytics": "0.2.0",
     "loadjs": "3.5.1"
   },
   "devDependencies": {

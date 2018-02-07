@@ -43,7 +43,26 @@ $ npm run build
 
 > 代码中会定义 integrations 的注册信息，详见： [integrations.js](http://gitlab.sit.caijj.net/client-web/latte-h5a/blob/master/adapter/integrations.js)
 
+### 单页应用的支持
+```javascript
+h5a('init', {
+  'Latte Bank Stats': {
+    gif: ...,
+    defaults: function () { return {}; },
+    singlePage: true
+  }
+})
+```
+在init时指定`singlePage: true`开启单页支持，h5a会针对单页应用做出特殊处理，主要有两点
+- pageview事件，自动监听前端路由变更，接口上无任何变更，对使用者透明
+- path路径的获取，对于单页应用，会获取哈希完整路径作为当前页面的路径（page, t_p等参数），对使用者也透明
+
 ### CHANGELOG
+0.3.0
+--
+1. integration-lattebank-analytics版本迭代，升级至 0.2.0
+2. 增加单页应用埋点的支持，具体用法参照以上单页应用支持的小节
+
 0.2.0
 --
 1. 整体重构优化版本

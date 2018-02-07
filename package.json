@@ -1,6 +1,6 @@
 {
   "name": "@lattebank/latte-h5a",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "The Lattebank Stats Analytics.js Integration.",
   "scripts": {
     "dev": "gulp build:tracking && gulp build:integration:dev && gulp build:dev && gulp clean:adapter",

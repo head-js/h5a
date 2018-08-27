@@ -1,0 +1,10 @@
+{
+  "name": "h5a-tracking",
+  "version": "0.1.0",
+  "scripts": {
+    "dist": "terser --mangle --compress --comments false --format max_line_len=100 --timings --output ./tracking.min.js ./index.js && gsed -i '1s/^/\\/* h5a-tracking 0.1.0 *\\/\\n/' ./tracking.min.js"
+  },
+  "devDependencies": {
+    "terser": "5.5.1"
+  }
+}

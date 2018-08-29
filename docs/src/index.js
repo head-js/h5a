@@ -1,40 +1,21 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import routes from './routes';
-import App from './App.vue';
+import $ready from 'vanilla.js/jquery/ready'; // eslint-disable-line import/no-extraneous-dependencies
+import $find from 'vanilla.js/jquery/find'; // eslint-disable-line import/no-extraneous-dependencies
+import $on from 'vanilla.js/jquery/on'; // eslint-disable-line import/no-extraneous-dependencies
 
 
-if ('development' === process.env.NODE_ENV) {
-  Vue.config.debug = true;
-  Vue.config.devtools = true;
-  Vue.config.productionTip = true;
-}
+$ready(function () { // eslint-disable-line prefer-arrow-callback
+  const $type = $find('.js-type');
+  const $secret = $find('.js-type-secret');
 
-a = b;
+  $on('.js-click', 'click', function () { // eslint-disable-line prefer-arrow-callback
+    h5a('send', 'track', 'CLICK');
+  });
 
-// Vue.config.warnHandler = function (msg, vm, trace) {
-//   // console.log(msg)
-//   // console.log(vm)
-//   // console.log(trace)
-// }
+  $on('.js-type', 'input', function () { // eslint-disable-line prefer-arrow-callback
+    h5a('send', 'track', 'TYPE', { value: $type.value });
+  });
 
-// Vue.config.errorHandler = function (err, vm, info) {
-//   // console.log(err)
-//   // console.log(vm)
-//   // console.log(info)
-// }
-
-
-Vue.use(VueRouter);
-
-const router = new VueRouter({ routes });
-
-
-const app = new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount(".App");
-
-
-window.__vue = Vue;
-window.__app = app;
+  $on('.js-type-secret', 'input', function () { // eslint-disable-line prefer-arrow-callback
+    h5a('send', 'track', 'TYPE_SECRET', { value: $secret.value }, { $exclude: 'GA' });
+  });
+});

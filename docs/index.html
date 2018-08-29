@@ -14,13 +14,35 @@
   s.async=1,s.src="/rsrc/js/analytics.js",h.parentNode.insertBefore(s,h)
   }(window,document,"script",0,"h5a");
   </script>
+
+  <link rel="stylesheet" href="/h5-analytics/css/bootstrap-xs-e3fc08d519.css" />
 </head>
 <body>
-  <h2 style="text-align: center; color: #969799; font-weight: normal;">h5a example</h2>
+  <div class="container">
+    <h1 class="text-center">h5-analytics</h1>
+    <h4 class="text-center">prefer Chrome mobile view</h4>
 
-  <div class="App"></div>
+    <br />
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2"><button type="button" class="btn btn-default js-click">Click</button></div>
+    </div>
+
+    <br />
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2"><input type="text" class="form-control js-type" placeholder="Type" /></div>
+    </div>
+
+    <br />
+    <div class="row">
+      <div class="col-xs-8 col-xs-offset-2"><input type="text" class="form-control js-type-secret" placeholder="Type Secret" /></div>
+    </div>
+  </div>
 
   <script>
+    h5a('init', 'Google Analytics', {
+      trackingId: 'UA-7072136-11',
+    });
+    
     h5a('init', 'H5 A Interface', {
     });
 

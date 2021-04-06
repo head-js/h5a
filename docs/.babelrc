@@ -1,0 +1,30 @@
+{
+  "env": {
+    "development": {
+      "presets": [
+        "@babel/env",
+        "@babel/react"
+      ],
+      "plugins": [
+        "@babel/plugin-transform-runtime",
+        "@babel/plugin-syntax-dynamic-import",
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+        ["import", { "libraryName": "vant", "libraryDirectory": "es", "style": true }, "vant"],
+        ["import", { "libraryName": "iview", "libraryDirectory": "src/components", "styleLibraryDirectory": "src/styles/components" }, "iview"]
+      ]
+    },
+    "production": {
+      "presets": [
+        "@babel/env",
+        "@babel/react"
+      ],
+      "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        ["@babel/plugin-proposal-class-properties", { "loose" : true }],
+        ["import", { "libraryName": "vant", "libraryDirectory": "es", "style": true }]
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>h5-analytics</title>
+
+  <script>
+  /* h5a.js-tracking 0.1.0 */
+  !function(a,e,t,n,c,s,h){a.H5AnalyticsObject=c,a.h5a=a.h5a||function(){
+  a.h5a.q.push([].slice.call(arguments))},a.h5a.q=a.h5a.q||[],a.h5a.l=1*new Date,s=e.createElement(t),
+  h=e.getElementsByTagName(t)[0],
+  s.async=1,s.src="/rsrc/js/analytics.js",h.parentNode.insertBefore(s,h)
+  }(window,document,"script",0,"h5a");
+  </script>
+</head>
+<body>
+  <h2 style="text-align: center; color: #969799; font-weight: normal;">h5a example</h2>
+
+  <div class="App"></div>
+
+  <script>
+    h5a('init', 'H5 A Interface', {
+    });
+
+    h5a('send', 'page');
+    h5a('send', 'identify', { email: 'shuaizhexu@gmail.com' });
+  </script>
+  <script src="http://0.0.0.0:3001/rsrc/dist/index-ha5h.js"></script>
+</body>
+</html>

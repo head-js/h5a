@@ -1,0 +1,15 @@
+{
+  "name": "@head/h5a",
+  "version": "0.4.0",
+  "description": "enhanced analytics.js",
+  "author": "hbrls<shuaizhexu@gmail.com>",
+  "main": "dist/analytics.next.js",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack-dev-server --config build/webpack.config.js",
+    "doc": "NODE_ENV=production webpack --config build/webpack.config.dist.js",
+    "build": "gulp tracking && gulp adapter && gulp build && gulp build-debug"
+  },
+  "devDependencies": {
+    "@head/analytics.js-core": "4.1.5"
+  }
+}
